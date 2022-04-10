@@ -3,10 +3,20 @@ import 'package:acr_cloud_sdk_example/utils/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SongDetailPage extends StatelessWidget {
+class SongDetailPage extends StatefulWidget {
   final DeezerSongModel? songModel;
   const SongDetailPage([this.songModel]);
 
+  @override
+  State<SongDetailPage> createState() => _SongDetailPageState();
+}
+
+class _SongDetailPageState extends State<SongDetailPage> {
+
+  bool _isFavorited = true;
+  void addFave(){
+
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,11 +35,11 @@ class SongDetailPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Color(0xffEDEDED),
                       borderRadius: BorderRadius.circular(10),
-                      image: songModel != null
+                      image: widget.songModel != null
                           ? DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                songModel?.album?.coverMedium ?? '',
+                                widget.songModel?.album?.coverMedium ?? '',
                               ),
                             )
                           : null),
@@ -41,7 +51,7 @@ class SongDetailPage extends StatelessWidget {
                     Container(
                       width: context.screenWidth(0.42),
                       child: Text(
-                        songModel?.title ?? '',
+                        widget.songModel?.title ?? '',
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.montserrat(
                           color: Colors.black,
@@ -52,7 +62,7 @@ class SongDetailPage extends StatelessWidget {
                     ),
                     const YMargin(10),
                     Text(
-                      songModel?.artist?.name ?? '',
+                      widget.songModel?.artist?.name ?? '',
                       style: GoogleFonts.montserrat(
                         color: Color(0xff727272),
                         fontSize: 15,
@@ -64,7 +74,7 @@ class SongDetailPage extends StatelessWidget {
                       children: [
                         Container(
                           child: Text(
-                            '${songModel?.album?.title ?? ''}',
+                            '${widget.songModel?.album?.title ?? ''}',
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.montserrat(
                               color: Color(0xffA3A3A3),
@@ -75,7 +85,7 @@ class SongDetailPage extends StatelessWidget {
                         ),
                         Container(
                           child: Text(
-                            ' • ${DateTime.parse(songModel?.releaseDate ?? DateTime.now().toIso8601String()).year}',
+                            ' • ${DateTime.parse(widget.songModel?.releaseDate ?? DateTime.now().toIso8601String()).year}',
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.montserrat(
                               color: Color(0xffA3A3A3),
@@ -88,12 +98,24 @@ class SongDetailPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Spacer(),
-                Image.asset(
-                  "assets/images/more.png",
-                  height: 20,
+                const SizedBox(width: 10,),
+                IconButton(
+                  icon: Icon( 
+                    _isFavorited? Icons.favorite: Icons.favorite_border,
+                    color:  _isFavorited?Colors.red: Colors.grey,
+                    size: 30.00,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isFavorited = !_isFavorited;
+                    });
+                  },
                 ),
-                const XMargin(30),
+                // Image.asset(
+                //   "assets/images/more.png",
+                //   height: 20,
+                // ),
+                // const XMargin(30),
               ],
             )
           ],

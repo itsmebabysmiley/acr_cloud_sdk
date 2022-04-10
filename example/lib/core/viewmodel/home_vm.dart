@@ -36,9 +36,9 @@ class HomeViewModel extends ChangeNotifier {
           host:
               'identify-eu-west-1.acrcloud.com', // obtain from https://www.acrcloud.com/
           accessKey:
-              '92e5456a723332fd090e3ab70ece161e', // obtain from https://www.acrcloud.com/
+              '3f7304f2a4780471d424d816d25d0536', // obtain from https://www.acrcloud.com/
           accessSecret:
-              'orZqaXs6DkJglYXeypJC0YCh0a4LEjOoMdl8gNTJ', // obtain from https://www.acrcloud.com/
+              'kq1DbXPwKL8FhgS7c2iMdt0Z5P7bmK9DYHlm5hlJ', // obtain from https://www.acrcloud.com/
           setLog: false,
         )
         ..songModelStream.listen(searchSong);
@@ -79,6 +79,7 @@ class HomeViewModel extends ChangeNotifier {
           showCupertinoModalBottomSheet(
               context: _context!,
               builder: (_) {
+                print(songModel);
                 return SongDetailPage(songModel);
               });
         },
